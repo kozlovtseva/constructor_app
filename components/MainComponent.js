@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchDishes } from '../redux/ActionCreators';
-import { StyleSheet, View, Platform, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
+import InputComponent from './InputComponent';
 
 const mapStateToProps = state => {
     return {
@@ -15,8 +16,18 @@ const mapDispatchToProps = dispatch => ({
 
 class Main extends Component {
 
+    state = {
+        calories: null
+    }
+
     componentDidMount() {
         this.props.fetchDishes();
+    }
+
+    onConstruct = (calories) => {
+        this.setState({
+            calories: event.target.value
+        });
     }
 
     render() { 
@@ -32,7 +43,8 @@ class Main extends Component {
                             Constructor
                         </Text>
                     </View>
-                </View>                
+                </View>
+                <InputComponent onConstruct = {this.onConstruct}/>                
             </View>
         );
     }
@@ -54,8 +66,7 @@ const styles = StyleSheet.create({
     },
     titleText: {
         fontSize: 28
-    },
-    
+    },   
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
