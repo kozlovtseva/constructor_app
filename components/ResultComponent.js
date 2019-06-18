@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { Input } from 'react-native-elements';
+import { Carousel } from 'react-native-carousel';
 
-class InputComponent extends Component {
+export class ThirdStep extends Component {
     state = {
-        calories: null
+        calories: this.props.navigation.getParam('calories')
     }
 
     render() { 
@@ -12,23 +12,29 @@ class InputComponent extends Component {
             <View>
                 <View style={styles.title}>
                     <Text style={styles.titleText}>
-                        Enter amount of calories per day:
+                        Your ration per day
                     </Text>
                 </View>            
-                <View style={styles.input}>
-                    <Input
-                        placeholder='2500'
-                        onChangeText={(number) => this.setState({calories: number})}
-                        value={this.state.calories}
-                    />
-                </View>                
+                <View style={styles.carousel}>
+                    {/* <Carousel width={375}>
+                        <View>
+                        <Text>Page 1</Text>
+                        </View>
+                        <View>
+                        <Text>Page 2</Text>
+                        </View>
+                        <View>
+                        <Text>Page 3</Text>
+                        </View>
+                    </Carousel> */}
+                </View>
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => this.props.navigation.navigate(
-                        'FirstStep', {calories: this.state.calories}
+                        'Input', {calories: this.state.calories}
                     )}
                 >
-                        <Text style={styles.buttonText}>Construct!</Text>
+                        <Text style={styles.buttonText}>Try Again!</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -45,14 +51,6 @@ const styles = StyleSheet.create({
         fontSize: 24,
         textAlign: 'center'
     },
-    input: {
-        backgroundColor: '#BBD3A2',
-        borderRadius: 10,
-        marginLeft: 15,
-        marginRight: 15,
-        marginTop: 40,
-        marginBottom: 60
-    },
     button: {
         backgroundColor: '#E4F48B',
         borderWidth: 1,
@@ -66,7 +64,10 @@ const styles = StyleSheet.create({
         fontSize: 28,
         textAlign:'center',
         padding: 10
+    },
+    addButton: {
+        backgroundColor: '#F7F1BA'
     }
 });
 
-export default InputComponent; 
+export default ThirdStep; 

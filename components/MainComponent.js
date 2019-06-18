@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchDishes } from '../redux/ActionCreators';
 import { StyleSheet, View, Text, Image } from 'react-native';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+
+
 import InputComponent from './InputComponent';
+import FirstStep from './FirstStepComponent';
+import SecondStep from './SecondStepComponent';
+import ThirdStep from './ThirdStepComponent';
+import Result from './ResultComponent';
+
 
 const mapStateToProps = state => {
     return {
@@ -13,6 +21,31 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
     fetchDishes: () => dispatch(fetchDishes())
 })
+
+const MainNavigator = createStackNavigator(
+    {
+        Input: {
+            screen: InputComponent,
+        },
+        FirstStep: {
+            screen: FirstStep,
+        },
+        SecondStep: {
+            screen: SecondStep,
+        },
+        ThirdStep: {
+            screen: ThirdStep,
+        },
+        Result: {
+            screen: Result,
+        }
+    },
+    {
+        initialRouteName: 'Input',
+    }
+);
+const Navigator = createAppContainer(MainNavigator);
+
 
 class Main extends Component {
 
@@ -26,7 +59,7 @@ class Main extends Component {
 
     onConstruct = (calories) => {
         this.setState({
-            calories: event.target.value
+            calories: calories
         });
     }
 
@@ -44,12 +77,11 @@ class Main extends Component {
                         </Text>
                     </View>
                 </View>
-                <InputComponent onConstruct = {this.onConstruct}/>                
+                <Navigator />
             </View>
         );
     }
 }
-
 const styles = StyleSheet.create({
     header: {
         flexDirection: 'row'
