@@ -14,11 +14,11 @@ export class SecondStep extends Component {
     }
 
     addDish = (calories, item) => {
-        let caloriesLeft = this.state.caloriesForBreakfast - calories;
+        let caloriesLeft = this.state.caloriesForLunch - calories;
         if (caloriesLeft < 0){
             Alert.alert(
-                "You can't eat more for breakfast",
-                "\nLet's construct dinner next",
+                "You can't eat more for lunch",
+                "\nLet's construct dinner next?",
                 [
                     {text: 'Cancel'},
                     {
@@ -110,4 +110,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SecondStep; 
+export default connect()(SecondStep); 

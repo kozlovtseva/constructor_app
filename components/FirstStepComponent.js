@@ -18,7 +18,7 @@ export class FirstStep extends Component {
         if (caloriesLeft < 0){
             Alert.alert(
                 "You can't eat more for breakfast",
-                "\nLet's construct lunch next",
+                "\nLet's construct lunch next?",
                 [
                     {text: 'Cancel'},
                     {
