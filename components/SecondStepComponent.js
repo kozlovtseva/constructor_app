@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { Carousel } from 'react-native-carousel';
 
 export class SecondStep extends Component {
     state = {
+        dishes: this.props.navigation.getParam('dishes'),
         calories: this.props.navigation.getParam('calories')
     }
 
     render() { 
+        console.log(this.state.dishes);
+        console.log(this.state.calories);
         return(
             <View>
                 <View style={styles.title}>

@@ -37,3 +37,8 @@ export const addDishes = (dishes) => ({
     type: ActionTypes.ADD_DISHES,
     payload: dishes
 });
+
+export const addDish = (dish) => ({
+  type: ActionTypes.ADD_DISH,
+  payload: dish
+});

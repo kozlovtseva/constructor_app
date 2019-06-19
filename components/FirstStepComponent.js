@@ -1,10 +1,46 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text, TouchableOpacity, FlatList } from 'react-native';
+import { connect } from 'react-redux';
+import { addDish } from '../redux/ActionCreators';
+
+import { StyleSheet, View, ScrollView, Text, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { Tile } from 'react-native-elements';
 
 export class FirstStep extends Component {
+
     state = {
-        calories: this.props.navigation.getParam('calories')
+        dishes: this.props.navigation.getParam('dishes'),
+        calories: this.props.navigation.getParam('calories'),
+        caloriesForBreakfast: this.props.navigation.getParam('calories')/3
+    }
+
+    addDish = (calories, item) => {
+        this.props.dispatch(addDish(item));
+        let caloriesLeft = this.state.caloriesForBreakfast - calories;
+        if (caloriesLeft < 0){
+            Alert.alert(
+                "You can't eat more for breakfast",
+                "\nLet's construct lunch next",
+                [
+                    {text: 'Cancel'},
+                    {
+                        text: 'OK', 
+                        onPress: () => {
+                            this.props.navigation.navigate(
+                                'SecondStep',
+                                {calories: this.state.calories,
+                                dishes: this.state.dishes}
+                            )
+                        }
+                    }
+                ],
+                { cancelable: false }
+            );
+        }else{
+            this.setState({
+                caloriesForBreakfast: caloriesLeft
+            });
+        }
+        
     }
 
     render() { 
@@ -16,6 +52,7 @@ export class FirstStep extends Component {
                     caption={item.description}
                     featured
                     imageSrc={{ url: item.image}}
+                    onPress={() => this.addDish(item.calories, item)}
                 >
                 </Tile>
             );
@@ -39,7 +76,9 @@ export class FirstStep extends Component {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => this.props.navigation.navigate(
-                        'SecondStep', {calories: this.state.calories}
+                        'SecondStep',
+                        {calories: this.state.calories,
+                        dishes: this.state.dishes}
                     )}
                 >
                     <Text style={styles.buttonText}>Next</Text>
@@ -51,9 +90,7 @@ export class FirstStep extends Component {
 
 const styles = StyleSheet.create({
     title: {
-        marginTop: 30,
-        marginLeft: 30,
-        marginRight: 30
+        margin: 30
     },
     titleText: {
         fontSize: 24,
@@ -74,4 +111,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default FirstStep; 
+export default connect()(FirstStep);
