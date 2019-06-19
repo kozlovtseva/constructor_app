@@ -1,10 +1,26 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchDishes } from '../redux/ActionCreators';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Input } from 'react-native-elements';
+
+const mapStateToProps = state => {
+    return {
+      dishes: state.dishes
+    }
+}
+  
+const mapDispatchToProps = dispatch => ({
+    fetchDishes: () => dispatch(fetchDishes())
+})
 
 class InputComponent extends Component {
     state = {
         calories: null
+    }
+
+    componentDidMount() {
+        this.props.fetchDishes();
     }
 
     render() { 
@@ -25,7 +41,9 @@ class InputComponent extends Component {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => this.props.navigation.navigate(
-                        'FirstStep', {calories: this.state.calories}
+                        'FirstStep', 
+                        {calories: this.state.calories, 
+                        dishes: this.props.dishes}
                     )}
                 >
                         <Text style={styles.buttonText}>Construct!</Text>
@@ -69,4 +87,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default InputComponent; 
+export default connect(mapStateToProps, mapDispatchToProps)(InputComponent);

@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchDishes } from '../redux/ActionCreators';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-
 
 import InputComponent from './InputComponent';
 import FirstStep from './FirstStepComponent';
@@ -12,15 +9,6 @@ import ThirdStep from './ThirdStepComponent';
 import Result from './ResultComponent';
 
 
-const mapStateToProps = state => {
-    return {
-      dishes: state.dishes
-    }
-}
-  
-const mapDispatchToProps = dispatch => ({
-    fetchDishes: () => dispatch(fetchDishes())
-})
 
 const MainNavigator = createStackNavigator(
     {
@@ -48,22 +36,8 @@ const Navigator = createAppContainer(MainNavigator);
 
 
 class Main extends Component {
-
-    state = {
-        calories: null
-    }
-
-    componentDidMount() {
-        this.props.fetchDishes();
-    }
-
-    onConstruct = (calories) => {
-        this.setState({
-            calories: calories
-        });
-    }
-
     render() { 
+        console.log(this.props);
         return (
             <View style={{flex:1, paddingTop: Expo.Constants.statusBarHeight }}>
                 <View style={styles.header}>
@@ -101,4 +75,4 @@ const styles = StyleSheet.create({
     },   
 });
   
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

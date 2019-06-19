@@ -1,1 +1,1 @@
-export const baseUrl = 'http://192.168.1.166:3001/';
+export const baseUrl = 'https://api.myjson.com/bins/9y555';

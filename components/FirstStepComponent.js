@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { Carousel } from 'react-native-carousel';
+import { StyleSheet, View, ScrollView, Text, TouchableOpacity, FlatList } from 'react-native';
+import { Tile } from 'react-native-elements';
 
 export class FirstStep extends Component {
     state = {
@@ -8,41 +8,43 @@ export class FirstStep extends Component {
     }
 
     render() { 
+        const renderListItem = ({item, index}) => {
+            return (
+                <Tile
+                    key={index}
+                    title={item.name}
+                    caption={item.description}
+                    featured
+                    imageSrc={{ url: item.image}}
+                >
+                </Tile>
+            );
+        };
+        let data = this.props.navigation.getParam('dishes');
+        let list = data.dishes.dishes;
         return(
-            <View>
+            <ScrollView>
                 <View style={styles.title}>
                     <Text style={styles.titleText}>
                         Construct your breakfast
                     </Text>
                 </View>            
-                <View style={styles.carousel}>
-                    {/* <Carousel width={375}>
-                        <View>
-                        <Text>Page 1</Text>
-                        </View>
-                        <View>
-                        <Text>Page 2</Text>
-                        </View>
-                        <View>
-                        <Text>Page 3</Text>
-                        </View>
-                    </Carousel> */}
+                <View style={styles.dishes}>
+                    <FlatList 
+                        data={list}
+                        renderItem={renderListItem}
+                        keyExtractor={item => item.id.toString()}
+                    />
                 </View>
-                {/* <TouchableOpacity
-                    style={styles.button + styles.addButton}
-                    onPress={() => this.addDish}
-                >
-                        <Text style={styles.buttonText}>Add The Dish</Text>
-                </TouchableOpacity>             */}
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => this.props.navigation.navigate(
                         'SecondStep', {calories: this.state.calories}
                     )}
                 >
-                        <Text style={styles.buttonText}>Next</Text>
+                    <Text style={styles.buttonText}>Next</Text>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
         );
     }
 };
@@ -63,16 +65,12 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderColor: '#000',
         borderRadius: 10,
-        marginRight: 20,
-        marginLeft: 20
+        margin: 20
     },
     buttonText:{
         fontSize: 28,
         textAlign:'center',
         padding: 10
-    },
-    addButton: {
-        backgroundColor: '#F7F1BA'
     }
 });
 
