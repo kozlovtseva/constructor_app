@@ -3,7 +3,9 @@ import * as ActionTypes from './ActionTypes';
 export const dishes = (state = { isLoading: true,
                                  errMess: null,
                                  dishes: [],
-                                 resultList: []}, action) => {
+                                 breakfastList: [],
+                                 lunchList: [],
+                                 dinnerList: []}, action) => {
     switch (action.type) {
         case ActionTypes.ADD_DISHES:
             return {...state, isLoading: false, errMess: null, dishes: action.payload};
@@ -14,9 +16,17 @@ export const dishes = (state = { isLoading: true,
         case ActionTypes.DISHES_FAILED:
             return {...state, isLoading: false, errMess: action.payload};
 
-        case ActionTypes.ADD_DISH:
+        case ActionTypes.ADD_DISH_TO_BREAKFAST:
             var dish = action.payload;
-            return { ...state, resultList: state.resultList.concat(dish)};
+            return { ...state, resultList: state.breakfastList.concat(dish)};
+
+        case ActionTypes.ADD_DISH_TO_LUNCH:
+            var dish = action.payload;
+            return { ...state, resultList: state.lunchList.concat(dish)};
+
+        case ActionTypes.ADD_DISH_TO_DINNER:
+            var dish = action.payload;
+            return { ...state, resultList: state.dinnerList.concat(dish)};
 
         default:
           return state;

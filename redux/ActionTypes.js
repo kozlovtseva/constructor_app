@@ -1,4 +1,7 @@
-export const ADD_DISH = 'ADD_DISH';
+export const ADD_DISH_TO_BREAKFAST = 'ADD_DISH_TO_BREAKFAST';
+export const ADD_DISH_TO_LUNCH = 'ADD_DISH_TO_LUNCH';
+export const ADD_DISH_TO_DINNER = 'ADD_DISH_TO_DINNER';
+
 export const ADD_DISHES = 'ADD_DISHES';
 export const DISHES_LOADING = 'DISHES_LOADING';
 export const DISHES_FAILED = 'DISHES_FAILED';

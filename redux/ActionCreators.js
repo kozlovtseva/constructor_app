@@ -38,7 +38,17 @@ export const addDishes = (dishes) => ({
     payload: dishes
 });
 
-export const addDish = (dish) => ({
-  type: ActionTypes.ADD_DISH,
+export const addDishToBreakfast = (dish) => ({
+  type: ActionTypes.ADD_DISH_TO_BREAKFAST,
+  payload: dish
+});
+
+export const addDishToLunch = (dish) => ({
+  type: ActionTypes.ADD_DISH_TO_LUNCH,
+  payload: dish
+});
+
+export const addDishToDinner = (dish) => ({
+  type: ActionTypes.ADD_DISH_TO_DINNER,
   payload: dish
 });

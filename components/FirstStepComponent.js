@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addDish } from '../redux/ActionCreators';
+import { addDishToBreakfast } from '../redux/ActionCreators';
 
 import { StyleSheet, View, ScrollView, Text, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { Tile } from 'react-native-elements';
@@ -14,7 +14,6 @@ export class FirstStep extends Component {
     }
 
     addDish = (calories, item) => {
-        this.props.dispatch(addDish(item));
         let caloriesLeft = this.state.caloriesForBreakfast - calories;
         if (caloriesLeft < 0){
             Alert.alert(
@@ -36,11 +35,11 @@ export class FirstStep extends Component {
                 { cancelable: false }
             );
         }else{
+            this.props.dispatch(addDishToBreakfast(item));
             this.setState({
                 caloriesForBreakfast: caloriesLeft
             });
-        }
-        
+        }        
     }
 
     render() { 
