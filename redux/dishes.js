@@ -18,15 +18,15 @@ export const dishes = (state = { isLoading: true,
 
         case ActionTypes.ADD_DISH_TO_BREAKFAST:
             var dish = action.payload;
-            return { ...state, resultList: state.breakfastList.concat(dish)};
+            return { ...state, breakfastList: state.breakfastList.concat(dish)};
 
         case ActionTypes.ADD_DISH_TO_LUNCH:
             var dish = action.payload;
-            return { ...state, resultList: state.lunchList.concat(dish)};
+            return { ...state, lunchList: state.lunchList.concat(dish)};
 
         case ActionTypes.ADD_DISH_TO_DINNER:
             var dish = action.payload;
-            return { ...state, resultList: state.dinnerList.concat(dish)};
+            return { ...state, dinnerList: state.dinnerList.concat(dish)};
 
         default:
           return state;

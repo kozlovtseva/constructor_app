@@ -1,54 +1,100 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { Carousel } from 'react-native-carousel';
+import { connect } from 'react-redux';
 
-export class ThirdStep extends Component {
-    state = {
-        calories: this.props.navigation.getParam('calories')
+import { StyleSheet, View, ScrollView, Text, TouchableOpacity, FlatList } from 'react-native';
+import { Tile } from 'react-native-elements';
+
+const mapStateToProps = state => {
+    return {
+      breakfastDishes: state.dishes.breakfastList,
+      lunchDishes: state.dishes.lunchList,
+      dinnerDishes: state.dishes.dinnerList
     }
+}
 
+export class Result extends Component {
     render() { 
+        const renderListItem = ({item, index}) => {
+            return (
+                <Tile
+                    key={index}
+                    title={item.name}
+                    caption={item.description}
+                    featured
+                    imageSrc={{ url: item.image}}
+                >
+                </Tile>
+            );
+        };
         return(
-            <View>
+            <ScrollView>
                 <View style={styles.title}>
                     <Text style={styles.titleText}>
                         Your ration per day
                     </Text>
-                </View>            
-                <View style={styles.carousel}>
-                    {/* <Carousel width={375}>
-                        <View>
-                        <Text>Page 1</Text>
-                        </View>
-                        <View>
-                        <Text>Page 2</Text>
-                        </View>
-                        <View>
-                        <Text>Page 3</Text>
-                        </View>
-                    </Carousel> */}
                 </View>
+                <View style={styles.subtitle}>
+                    <Text style={styles.subtitleText}>
+                        Breakfast
+                    </Text>
+                </View>
+                <View style={styles.dishes}>
+                    <FlatList 
+                        data={this.props.breakfastDishes}
+                        renderItem={renderListItem}
+                        keyExtractor={item => item.id.toString()}
+                    />
+                </View>
+                <View style={styles.subtitle}>
+                    <Text style={styles.subtitleText}>
+                        Lunch
+                    </Text>
+                </View>
+                <View style={styles.dishes}>
+                    <FlatList 
+                        data={this.props.lunchDishes}
+                        renderItem={renderListItem}
+                        keyExtractor={item => item.id.toString()}
+                    />
+                </View>
+                <View style={styles.subtitle}>
+                    <Text style={styles.subtitleText}>
+                        Dinner
+                    </Text>
+                </View>
+                <View style={styles.dishes}>
+                    <FlatList 
+                        data={this.props.dinnerDishes}
+                        renderItem={renderListItem}
+                        keyExtractor={item => item.id.toString()}
+                    />
+                </View>          
+
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => this.props.navigation.navigate(
-                        'Input', {calories: this.state.calories}
-                    )}
+                    onPress={() => this.props.navigation.navigate('Input')}
                 >
                         <Text style={styles.buttonText}>Try Again!</Text>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
         );
     }
 };
 
 const styles = StyleSheet.create({
     title: {
-        marginTop: 30,
-        marginLeft: 30,
-        marginRight: 30
+        margin: 30
     },
     titleText: {
         fontSize: 24,
+        textAlign: 'center'
+    },
+    subtitle: {
+        marginTop: 40,
+        marginBottom: 30
+    },
+    subtitleText: {
+        fontSize: 18,
         textAlign: 'center'
     },
     button: {
@@ -57,17 +103,13 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderColor: '#000',
         borderRadius: 10,
-        marginRight: 20,
-        marginLeft: 20
+        margin: 20
     },
     buttonText:{
         fontSize: 28,
         textAlign:'center',
         padding: 10
-    },
-    addButton: {
-        backgroundColor: '#F7F1BA'
     }
 });
 
-export default ThirdStep; 
+export default connect(mapStateToProps)(Result);

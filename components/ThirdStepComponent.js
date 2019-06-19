@@ -33,7 +33,7 @@ export class ThirdStep extends Component {
         }else{
             this.props.dispatch(addDishToDinner(item));
             this.setState({
-                caloriesForLunch: caloriesLeft
+                caloriesForDinner: caloriesLeft
             });
         }        
     }
