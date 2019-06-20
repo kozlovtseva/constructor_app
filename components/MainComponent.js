@@ -40,6 +40,7 @@ class Main extends Component {
         console.log(this.props);
         return (
             <View style={{flex:1, paddingTop: Expo.Constants.statusBarHeight }}>
+                {/* header */}
                 <View style={styles.header}>
                     <Image source={require('./images/logo.png')} style={styles.logo} />
                     <View style={styles.title}>
@@ -51,6 +52,7 @@ class Main extends Component {
                         </Text>
                     </View>
                 </View>
+                {/* main section */}
                 <Navigator />
             </View>
         );

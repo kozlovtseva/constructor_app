@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, View, ScrollView, Text, TouchableOpacity, FlatList } from 'react-native';
 import { Tile } from 'react-native-elements';
 
+//get result list from the store
 const mapStateToProps = state => {
     return {
       breakfastDishes: state.dishes.breakfastList,

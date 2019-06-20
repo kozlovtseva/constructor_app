@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
+
 import { connect } from 'react-redux';
 import { fetchDishes } from '../redux/ActionCreators';
+
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Input } from 'react-native-elements';
+
 
 const mapStateToProps = state => {
     return {
       dishes: state.dishes
     }
 }
-  
 const mapDispatchToProps = dispatch => ({
     fetchDishes: () => dispatch(fetchDishes())
 })
 
 class InputComponent extends Component {
+
+    // input data
     state = {
         calories: null
     }
@@ -40,6 +44,7 @@ class InputComponent extends Component {
                 </View>                
                 <TouchableOpacity
                     style={styles.button}
+                    //amount of calories and dishes list are passed to the first step
                     onPress={() => this.props.navigation.navigate(
                         'FirstStep', 
                         {calories: this.state.calories, 

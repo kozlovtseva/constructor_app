@@ -10,12 +10,15 @@ export class FirstStep extends Component {
     state = {
         dishes: this.props.navigation.getParam('dishes'),
         calories: this.props.navigation.getParam('calories'),
+        //amount of calories one can eat for breakfast
         caloriesForBreakfast: this.props.navigation.getParam('calories')/3
     }
 
+    // adding selected dish to the result list (redux store)
     addDish = (calories, item) => {
         let caloriesLeft = this.state.caloriesForBreakfast - calories;
-        if (caloriesLeft < 0){
+        if (caloriesLeft < 0) {
+            //if there are no "free" calories left
             Alert.alert(
                 "You can't eat more for breakfast",
                 "\nLet's construct lunch next?",
@@ -43,6 +46,7 @@ export class FirstStep extends Component {
     }
 
     render() { 
+        //dish item (looks as a tile with image and description)
         const renderListItem = ({item, index}) => {
             return (
                 <Tile
